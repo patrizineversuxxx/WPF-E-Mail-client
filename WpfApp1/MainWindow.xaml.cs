@@ -36,10 +36,11 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        EMailClient emailClient = new EMailClient();
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
        private MimeMessage GenerateTestMessage(string email)
@@ -48,14 +49,19 @@ namespace WpfApp1
             message.To.Add(new MailboxAddress("lgnv2009@gmail.com", "lgnv2009@gmail.com"));
             message.From.Add(new MailboxAddress(email, "productionbyalu@gmail.com"));
             message.Subject = "кек";
-            message.Body = new BodyBuilder() { HtmlBody = "<body>бубль буль</body>", TextBody = "kek shrek 1996" }.ToMessageBody();
+            message.Body = new BodyBuilder() { HtmlBody = textBoxOutput.Text}.ToMessageBody();
             return message;
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            EMailClient emailClient = new EMailClient();
+
             await emailClient.Authenticate("productionbyalu@gmail.com");
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
             emailClient.Send(GenerateTestMessage("productionbyalu@gmail.com"));
         }
     }

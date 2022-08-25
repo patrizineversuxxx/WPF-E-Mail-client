@@ -17,7 +17,8 @@
                 </TransformGroup>
             </TextBox.RenderTransform>
         </TextBox>
-        <Button Content="Sign in" HorizontalAlignment="Center" Margin="0,382,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Sign in" HorizontalAlignment="Left" Margin="248,387,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Send E-Mail" HorizontalAlignment="Left" Margin="480,389,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.261,0.32" Click="Button_Click_1"/>
 
     </Grid>
 </Window>
