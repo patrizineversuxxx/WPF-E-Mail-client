@@ -9,7 +9,7 @@ namespace WPFMailClient.Authentication
 {
     public abstract class AuthenticationFlow
     {
-        internal string email;
+        protected string email;
         
         public AuthenticationFlow(string email)
         {

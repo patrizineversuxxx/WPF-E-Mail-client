@@ -1,9 +1,7 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Net;
 using System.Threading.Tasks;
 using WPFMailClient.Authentication;
 
@@ -13,10 +11,11 @@ namespace WPFMailClient
     {
         private SmtpClient client;
 
-        public async void Authenticate(string email)
+        public async Task Authenticate(string email)
         {
-            var authenticationFlow = AuthenticationFlow.Create(email);
-            client = await authenticationFlow.Authenticate();
+            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+            var authFlow = AuthenticationFlow.Create(email);
+            client = await authFlow.Authenticate();
         }
 
         public void Send(MimeMessage message)

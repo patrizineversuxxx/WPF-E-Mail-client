@@ -48,14 +48,14 @@ namespace WpfApp1
             message.To.Add(new MailboxAddress("lgnv2009@gmail.com", "lgnv2009@gmail.com"));
             message.From.Add(new MailboxAddress(email, "productionbyalu@gmail.com"));
             message.Subject = "кек";
-            message.Body = new BodyBuilder() { HtmlBody = "<body>pin is</body>", TextBody = "kek shrek 1996" }.ToMessageBody();
+            message.Body = new BodyBuilder() { HtmlBody = "<body>бубль буль</body>", TextBody = "kek shrek 1996" }.ToMessageBody();
             return message;
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             EMailClient ee = new EMailClient();
-            ee.Authenticate("productionbyalu@gmail.com");
+            await ee.Authenticate("productionbyalu@gmail.com");
             ee.Send(GenerateTestMessage("productionbyalu@gmail.com"));
         }
     }
