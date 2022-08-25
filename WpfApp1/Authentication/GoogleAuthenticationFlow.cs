@@ -35,7 +35,6 @@ namespace WPFMailClient.Authentication
             var credential = await authCode.AuthorizeAsync(email, CancellationToken.None);
             if (credential.Token.IsExpired(SystemClock.Default))
                 await credential.RefreshTokenAsync(CancellationToken.None);
-            System.Diagnostics.Process.Start("cmd.exe");
             var oauth2 = new SaslMechanismOAuth2(credential.UserId, credential.Token.AccessToken);
             var client = new SmtpClient();
             await client.ConnectAsync("smtp.gmail.com", 465, SecureSocketOptions.SslOnConnect);

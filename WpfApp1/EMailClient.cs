@@ -9,7 +9,7 @@ using WPFMailClient.Authentication;
 
 namespace WPFMailClient
 {
-    class EMailClient:IDisposable
+    class EMailClient : IDisposable
     {
         private SmtpClient client;
 
@@ -26,7 +26,7 @@ namespace WPFMailClient
 
         public void Dispose()
         {
-            client.Disconnect(true);
+            client.Dispose();
         }
     }
 }
