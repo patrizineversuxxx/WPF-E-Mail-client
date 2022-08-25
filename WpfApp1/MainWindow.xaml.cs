@@ -1,13 +1,32 @@
-﻿using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using MailKit.Net.Smtp;
+using Google.Apis.Gmail.v1;
 using MailKit.Security;
 using MimeKit;
 using Google.Apis.Auth.OAuth2.Flows;
+using System.Security.Authentication;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Util.Store;
 using System.Threading;
 using Google.Apis.Util;
+using MailKit.Net.Imap;
 
 namespace WpfApp1
 {
@@ -20,24 +39,12 @@ namespace WpfApp1
         const string clientID = "722156952635-ivc1b559ep2igkel122pdgkcmae944c5.apps.googleusercontent.com";
         const string clientSecret = "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";
         const string GMAilAccount = "productionbyalu@gmail.com";
-        SmtpClient client;
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private async void StartSmtpClient()
-        {
-            var client = new SmtpClient();
-            client.CheckCertificateRevocation = false;
-            await client.ConnectAsync("smtp.gmail.com", 465, SecureSocketOptions.SslOnConnect);
-            await client.AuthenticateAsync(Authorize());
-            
-            SendMessage(GenerateTestMessage());
-            await client.DisconnectAsync(true);
-        }
-
-        private void SendMessage(MimeMessage message)
+        private void SendMessage(SmtpClient client, MimeMessage message)
         {
             client.Send(message);
         }
@@ -73,7 +80,13 @@ namespace WpfApp1
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            StartSmtpClient();     
+            var client = new SmtpClient();
+            client.CheckCertificateRevocation = false;
+            await client.ConnectAsync("smtp.gmail.com", 465, SecureSocketOptions.SslOnConnect);
+            var ouath = await Authorize();
+            await client.AuthenticateAsync(ouath);
+            SendMessage(client, GenerateTestMessage());
+            await client.DisconnectAsync(true);
         }
     }
 }
