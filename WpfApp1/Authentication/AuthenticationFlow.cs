@@ -22,9 +22,6 @@ namespace WPFMailClient.Authentication
             return new SimpleAuthenticationFlow(email);
         }
 
-        public async virtual Task<SmtpClient> Authenticate()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract Task<SmtpClient> Authenticate();
     }
 }

@@ -9,21 +9,24 @@ using WPFMailClient.Authentication;
 
 namespace WPFMailClient
 {
-    class EMailClient
+    class EMailClient:IDisposable
     {
         private SmtpClient client;
 
         public async void Authenticate(string email)
         {
             var authenticationFlow = AuthenticationFlow.Create(email);
-            var authTask = authenticationFlow.Authenticate();
-            client = await authTask;
-            if (client == null) Console.WriteLine("empty client");
+            client = await authenticationFlow.Authenticate();
         }
 
         public void Send(MimeMessage message)
         {
             client.Send(message);
+        }
+
+        public void Dispose()
+        {
+            client.Disconnect(true);
         }
     }
 }

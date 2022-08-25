@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MailKit.Net.Smtp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,11 @@ namespace WPFMailClient.Authentication
     {
         public SimpleAuthenticationFlow(string email) : base(email)
         {
+        }
+
+        public override Task<SmtpClient> Authenticate()
+        {
+            throw new NotImplementedException();
         }
     }
 }
