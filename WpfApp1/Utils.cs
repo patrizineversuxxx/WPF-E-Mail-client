@@ -10,16 +10,9 @@ namespace WPFMailClient
     {
         public static string GetEmailDomain(string email)
         {
-            try
-            {
-                var parts = email.Split('@');
-                return parts[1];
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return "";
-            }
+            var parts = email.Split('@');
+            if (parts.Length != 2) return "";
+            return parts[1];
         }
     }
 }

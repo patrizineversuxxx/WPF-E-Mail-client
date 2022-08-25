@@ -54,9 +54,9 @@ namespace WpfApp1
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            EMailClient ee = new EMailClient();
-            await ee.Authenticate("productionbyalu@gmail.com");
-            ee.Send(GenerateTestMessage("productionbyalu@gmail.com"));
+            EMailClient emailClient = new EMailClient();
+            await emailClient.Authenticate("productionbyalu@gmail.com");
+            emailClient.Send(GenerateTestMessage("productionbyalu@gmail.com"));
         }
     }
 }
